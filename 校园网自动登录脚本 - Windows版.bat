@@ -2,15 +2,21 @@
 chcp 936 >nul
 setlocal enabledelayedexpansion
 
+:: æ ¡å›­ç½‘ç™»å½•è„šæœ¬ - Windowsç‰ˆ.bat
+:: ç‰ˆæƒæ‰€æœ‰ (c) 2025 JM14128
+:: æœ¬ç¨‹åºä½¿ç”¨ GNU é€šç”¨å…¬å…±è®¸å¯è¯ç¬¬ä¸‰ç‰ˆï¼ˆGPL-3.0ï¼‰æˆæƒå‘å¸ƒã€‚
+:: æ‚¨å¯ä»¥è‡ªç”±ä½¿ç”¨ã€å¤åˆ¶ã€ä¿®æ”¹å’Œåˆ†å‘æœ¬è„šæœ¬ï¼Œ
+:: ä½†å¿…é¡»ä¿ç•™æœ¬ç‰ˆæƒå£°æ˜å’Œè®¸å¯è¯ä¿¡æ¯ï¼Œç¦æ­¢æœªç»æˆæƒçš„å•†ä¸šç”¨é€”ã€‚
+
 echo.
-echo ¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[
-echo ¨U            Ğ£Ô°ÍøµÇÂ¼½Å±¾ - Windows°æ                ¨U
-echo ¨U    °æÈ¨ËùÓĞ (c) 2025 JM14128¡£½ö¹©Ñ§Ï°½»Á÷Ê¹ÓÃ¡£     ¨U
-echo ¨U       ½ûÖ¹Î´¾­ÊÚÈ¨µÄÉÌÒµÓÃÍ¾£¬Î¥Õß×Ô¸º·¨ÂÉÔğÈÎ¡£     ¨U
-echo ¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a
+echo â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
+echo â•‘            æ ¡å›­ç½‘ç™»å½•è„šæœ¬ - Windowsç‰ˆ                â•‘
+echo â•‘    ç‰ˆæƒæ‰€æœ‰ (c) 2025 JM14128ã€‚ä»…ä¾›å­¦ä¹ äº¤æµä½¿ç”¨ã€‚     â•‘
+echo â•‘       ç¦æ­¢æœªç»æˆæƒçš„å•†ä¸šç”¨é€”ï¼Œè¿è€…è‡ªè´Ÿæ³•å¾‹è´£ä»»ã€‚     â•‘
+echo â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 echo.
 
-title Ğ£Ô°ÍøµÇÂ¼½Å±¾
+title æ ¡å›­ç½‘ç™»å½•è„šæœ¬
 
 setlocal enabledelayedexpansion
 
@@ -18,24 +24,24 @@ set "user_file=users.txt"
 set "pw_file=enc.txt"
 set "last_file=last_user.txt"
 
-:: ÏÈ¼ì²âÊÇ·ñÁªÍø£¨ÅĞ¶ÏÒÑµÇÂ¼£©
-echo ÕıÔÚ¼ì²âÍøÂç×´Ì¬...
+:: å…ˆæ£€æµ‹æ˜¯å¦è”ç½‘ï¼ˆåˆ¤æ–­å·²ç™»å½•ï¼‰
+echo æ­£åœ¨æ£€æµ‹ç½‘ç»œçŠ¶æ€...
 ping www.baidu.com -n 1 >nul
 if %errorlevel%==0 (
-    echo µ±Ç°ÒÑÁ¬½ÓĞ£Ô°Íø£¬ÎŞĞèµÇÂ¼£¡
+    echo å½“å‰å·²è¿æ¥æ ¡å›­ç½‘ï¼Œæ— éœ€ç™»å½•ï¼
     echo.
-    echo ¡¾°´»Ø³µ¼üÍË³ö³ÌĞò...¡¿
+    echo ã€æŒ‰å›è½¦é”®é€€å‡ºç¨‹åº...ã€‘
     pause >nul
     exit /b
 )
 
-echo [Î´µÇÂ¼] ¼ì²âµ½ÍøÂçÎ´Á¬½Ó£¬×¼±¸µÇÂ¼Ğ£Ô°Íø...
+echo [æœªç™»å½•] æ£€æµ‹åˆ°ç½‘ç»œæœªè¿æ¥ï¼Œå‡†å¤‡ç™»å½•æ ¡å›­ç½‘...
 echo.
 
-:: µ¹¼ÆÊ±×Ô¶¯Ê¹ÓÃÉÏ´ÎÅäÖÃ
+:: å€’è®¡æ—¶è‡ªåŠ¨ä½¿ç”¨ä¸Šæ¬¡é…ç½®
 if exist %last_file% (
     set /p last_user=<%last_file%
-    echo ½«ÔÚ 5 ÃëÄÚ×Ô¶¯Ê¹ÓÃÉÏ´ÎÅäÖÃ [%last_user%] µÇÂ¼£¬°´ÈÎÒâ¼üÈ¡Ïû²¢½øÈë²Ëµ¥...
+    echo å°†åœ¨ 5 ç§’å†…è‡ªåŠ¨ä½¿ç”¨ä¸Šæ¬¡é…ç½® [%last_user%] ç™»å½•ï¼ŒæŒ‰ä»»æ„é”®å–æ¶ˆå¹¶è¿›å…¥èœå•...
     choice /t 5 /d Y /n >nul
     if errorlevel 2 (
         goto main_menu
@@ -53,7 +59,7 @@ if exist %last_file% (
         )
         goto login
     ) else (
-        echo ÉÏ´ÎÓÃ»§¼ÇÂ¼ÎŞĞ§£¬½øÈë²Ëµ¥...
+        echo ä¸Šæ¬¡ç”¨æˆ·è®°å½•æ— æ•ˆï¼Œè¿›å…¥èœå•...
         pause
         goto main_menu
     )
@@ -61,33 +67,33 @@ if exist %last_file% (
 
 :main_menu
 cls
-echo ===== Ğ£Ô°Íø¶àÓÃ»§µÇÂ¼ÏµÍ³ =====
+echo ===== æ ¡å›­ç½‘å¤šç”¨æˆ·ç™»å½•ç³»ç»Ÿ =====
 if not exist %user_file% (
-    echo [ÌáÊ¾] µ±Ç°ÎŞÈÎºÎÕË»§£¬ÇëÌí¼Ó£º
+    echo [æç¤º] å½“å‰æ— ä»»ä½•è´¦æˆ·ï¼Œè¯·æ·»åŠ ï¼š
     goto add_user
 )
 
-:: ÁĞ³öÓÃ»§
+:: åˆ—å‡ºç”¨æˆ·
 set /a idx=0
 for /f "tokens=1,2,3 delims=," %%a in (%user_file%) do (
     set /a idx+=1
-    echo  !idx!. Ñ§ºÅ£º%%a  ÔËÓªÉÌ£º%%b
+    echo  !idx!. å­¦å·ï¼š%%a  è¿è¥å•†ï¼š%%b
     set "user[!idx!]=%%a,%%b,%%c"
 )
 
 echo.
-echo ÊäÈëÊı×ÖÑ¡ÔñµÇÂ¼ÕË»§
-echo N = ĞÂ½¨ÓÃ»§    D = É¾³ıÓÃ»§    Q = ÍË³ö
-set /p choice=ÄãµÄÑ¡Ôñ£º
+echo è¾“å…¥æ•°å­—é€‰æ‹©ç™»å½•è´¦æˆ·
+echo N = æ–°å»ºç”¨æˆ·    D = åˆ é™¤ç”¨æˆ·    Q = é€€å‡º
+set /p choice=ä½ çš„é€‰æ‹©ï¼š
 
 if /i "%choice%"=="N" goto add_user
 if /i "%choice%"=="D" goto delete_user
 if /i "%choice%"=="Q" exit
 
-:: ÓÃ»§Ñ¡ÔñµÇÂ¼
+:: ç”¨æˆ·é€‰æ‹©ç™»å½•
 set /a num_choice=%choice% 2>nul
 if "!user[%num_choice%]!"=="" (
-    echo ÎŞĞ§Ñ¡Ôñ
+    echo æ— æ•ˆé€‰æ‹©
     pause
     goto main_menu
 )
@@ -98,14 +104,14 @@ for /f "tokens=1,2,3 delims=," %%a in ("!user[%num_choice%]!") do (
     set "encpass=%%c"
 )
 
-:: ±£´æÉÏ´ÎÓÃ»§
+:: ä¿å­˜ä¸Šæ¬¡ç”¨æˆ·
 echo %user% > %last_file%
 
 :login
 cls
-echo ÕıÔÚµÇÂ¼ %user%%operator%...
+echo æ­£åœ¨ç™»å½• %user%%operator%...
 
-:: ½âÃÜÃÜÂë
+:: è§£å¯†å¯†ç 
 echo %encpass% > %pw_file%
 certutil -decode %pw_file% decoded_pw.txt >nul
 set /p password=<decoded_pw.txt
@@ -119,35 +125,35 @@ set "result="
 for /f "usebackq tokens=* delims=" %%r in ("result.txt") do set "result=%%r"
 echo %result% | find /i "success" >nul
 if %errorlevel%==0 (
-    echo µÇÂ¼³É¹¦£¡
+    echo ç™»å½•æˆåŠŸï¼
 ) else (
-    echo µÇÂ¼Ê§°Ü£¬Çë¼ì²éÕËºÅ»òÍøÂç£¡
+    echo ç™»å½•å¤±è´¥ï¼Œè¯·æ£€æŸ¥è´¦å·æˆ–ç½‘ç»œï¼
 )
 del result.txt
 echo.
-echo ¡¾°´»Ø³µ¼ü·µ»Ø²Ëµ¥...¡¿
+echo ã€æŒ‰å›è½¦é”®è¿”å›èœå•...ã€‘
 pause >nul
 goto main_menu
 
 :add_user
 echo.
-set /p user=ÇëÊäÈëÑ§ºÅ£º
+set /p user=è¯·è¾“å…¥å­¦å·ï¼š
 
-echo ÇëÑ¡ÔñÔËÓªÉÌ£º
-echo   1. ÁªÍ¨
-echo   2. ÒÆ¶¯
-echo   3. µçĞÅ
-echo   4. ÎŞÎıÑ§Ôº
-set /p op_choice=ÇëÊäÈëÊı×Ö£º
+echo è¯·é€‰æ‹©è¿è¥å•†ï¼š
+echo   1. è”é€š
+echo   2. ç§»åŠ¨
+echo   3. ç”µä¿¡
+echo   4. æ— é”¡å­¦é™¢
+set /p op_choice=è¯·è¾“å…¥æ•°å­—ï¼š
 
 if "%op_choice%"=="1" set "operator=@unicom"
 if "%op_choice%"=="2" set "operator=@cmcc"
 if "%op_choice%"=="3" set "operator=@telecom"
 if "%op_choice%"=="4" set "operator="
 
-set /p password=ÇëÊäÈëÃÜÂë£º
+set /p password=è¯·è¾“å…¥å¯†ç ï¼š
 
-:: ¼ÓÃÜÃÜÂë
+:: åŠ å¯†å¯†ç 
 echo %password% > pw_raw.txt
 certutil -encode pw_raw.txt pw_enc.txt >nul
 set "encpass="
@@ -157,32 +163,32 @@ for /f "skip=1 tokens=* delims=" %%p in (pw_enc.txt) do (
 del pw_raw.txt >nul
 del pw_enc.txt >nul
 
-:: ±£´æÓÃ»§
+:: ä¿å­˜ç”¨æˆ·
 echo %user%,%operator%,%encpass%>>%user_file%
-echo [ÓÃ»§ÒÑÌí¼Ó³É¹¦£¡]
+echo [ç”¨æˆ·å·²æ·»åŠ æˆåŠŸï¼]
 pause
 goto main_menu
 
 :delete_user
 cls
-echo [É¾³ıÓÃ»§]
+echo [åˆ é™¤ç”¨æˆ·]
 set /a idx=0
 for /f "tokens=1,2,3 delims=," %%a in (%user_file%) do (
     set /a idx+=1
-    echo   !idx!. Ñ§ºÅ£º%%a  ÔËÓªÉÌ£º%%b
+    echo   !idx!. å­¦å·ï¼š%%a  è¿è¥å•†ï¼š%%b
     set "user[!idx!]=%%a,%%b,%%c"
 )
 
 echo.
-set /p del_idx=ÊäÈë±àºÅÉ¾³ı£º
+set /p del_idx=è¾“å…¥ç¼–å·åˆ é™¤ï¼š
 
 if "!user[%del_idx%]!"=="" (
-    echo ±àºÅÎŞĞ§
+    echo ç¼–å·æ— æ•ˆ
     pause
     goto main_menu
 )
 
-:: É¾³ı²¢¸üĞÂÎÄ¼ş
+:: åˆ é™¤å¹¶æ›´æ–°æ–‡ä»¶
 set /a line=0
 > tmp.txt (
     for /f "tokens=1,2,3 delims=," %%a in (%user_file%) do (
@@ -191,6 +197,6 @@ set /a line=0
     )
 )
 move /y tmp.txt %user_file% >nul
-echo ÒÑÉ¾³ıµÚ %del_idx% ¸öÓÃ»§
+echo å·²åˆ é™¤ç¬¬ %del_idx% ä¸ªç”¨æˆ·
 pause
 goto main_menu
