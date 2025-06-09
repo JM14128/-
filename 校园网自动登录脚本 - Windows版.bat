@@ -3,7 +3,7 @@ chcp 936 >nul
 setlocal enabledelayedexpansion
 
 :: 校园网登录脚本 - Windows版.bat
-:: 版权所有 (c) 2025 JM14128
+:: 版权所有 (c) 2025 JM14128 https://github.com/JM14128
 :: 本程序使用 GNU 通用公共许可证第三版（GPL-3.0）授权发布。
 :: 您可以自由使用、复制、修改和分发本脚本，
 :: 但必须保留本版权声明和许可证信息，禁止未经授权的商业用途。
@@ -24,11 +24,11 @@ set "user_file=users.txt"
 set "pw_file=enc.txt"
 set "last_file=last_user.txt"
 
-:: 先检测是否联网（判断已登录）
+:: 先检测是否联网
 echo 正在检测网络状态...
 curl -s --head --connect-timeout 3 http://www.baidu.com | findstr /r /c:"HTTP/[0-9]\.[0-9] 200" >nul
 if %errorlevel%==0 (
-    echo 当前已连接校园网，无需登录！
+    echo 当前已可以上网，无需登录！
     echo.
     echo 【按回车键退出程序...】
     pause >nul
@@ -39,17 +39,19 @@ if %errorlevel%==0 (
 echo [未登录] 检测到网络未连接，准备登录校园网...
 echo.
 
-
 :: 读取上次登录用户
+setlocal enabledelayedexpansion
+
 if exist "%last_file%" (
-    set /p last_user=<"%last_file%"
-    echo 将在 5 秒内自动使用上次配置 [%last_user%] 登录，按Y立即登录，按N取消并进入菜单...
+    for /f "usebackq delims=" %%i in ("%last_file%") do set "last_user=%%i"
+
+    echo 将在 5 秒内自动使用上次配置 [!last_user!] 登录，按Y立即登录，按N取消并进入菜单...
     choice /t 5 /d Y /n >nul
     if errorlevel 2 goto main_menu
 
     set "target_user="
     for /f "tokens=1,2,3 delims=," %%a in (%user_file%) do (
-        if "%%a"=="%last_user%" set "target_user=%%a,%%b,%%c"
+        if "%%a"=="!last_user!" set "target_user=%%a,%%b,%%c"
     )
     if defined target_user (
         for /f "tokens=1,2,3 delims=," %%a in ("!target_user!") do (
@@ -225,3 +227,5 @@ move /y tmp.txt %user_file% >nul
 echo 已删除第 %del_idx% 个用户
 pause
 goto main_menu
+
+
