@@ -26,7 +26,7 @@ set "last_file=last_user.txt"
 
 :: 先检测是否联网（判断已登录）
 echo 正在检测网络状态...
-ping www.baidu.com -n 1 >nul
+curl -s --head --connect-timeout 3 http://www.baidu.com | findstr /r /c:"HTTP/[0-9]\.[0-9] 200" >nul
 if %errorlevel%==0 (
     echo 当前已连接校园网，无需登录！
     echo.
@@ -35,21 +35,21 @@ if %errorlevel%==0 (
     exit /b
 )
 
+
 echo [未登录] 检测到网络未连接，准备登录校园网...
 echo.
 
-:: 倒计时自动使用上次配置
-if exist %last_file% (
-    set /p last_user=<%last_file%
-    echo 将在 5 秒内自动使用上次配置 [%last_user%] 登录，按任意键取消并进入菜单...
+
+:: 读取上次登录用户
+if exist "%last_file%" (
+    set /p last_user=<"%last_file%"
+    echo 将在 5 秒内自动使用上次配置 [%last_user%] 登录，按Y立即登录，按N取消并进入菜单...
     choice /t 5 /d Y /n >nul
-    if errorlevel 2 (
-        goto main_menu
-    )
+    if errorlevel 2 goto main_menu
+
     set "target_user="
     for /f "tokens=1,2,3 delims=," %%a in (%user_file%) do (
-        set "line=%%a,%%b,%%c"
-        if "%%a"=="%last_user%" set "target_user=!line!"
+        if "%%a"=="%last_user%" set "target_user=%%a,%%b,%%c"
     )
     if defined target_user (
         for /f "tokens=1,2,3 delims=," %%a in ("!target_user!") do (
@@ -65,6 +65,7 @@ if exist %last_file% (
     )
 )
 
+
 :main_menu
 cls
 echo ===== 校园网多用户登录系统 =====
@@ -77,7 +78,12 @@ if not exist %user_file% (
 set /a idx=0
 for /f "tokens=1,2,3 delims=," %%a in (%user_file%) do (
     set /a idx+=1
-    echo  !idx!. 学号：%%a  运营商：%%b
+    set "show_operator=%%b"
+    if "%%b"=="@unicom" set "show_operator=中国联通"
+    if "%%b"=="@cmcc" set "show_operator=中国移动"
+    if "%%b"=="@telecom" set "show_operator=中国电信"
+    if "%%b"=="" set "show_operator=无锡学院"
+    echo  !idx!. 学号：%%a  运营商：!show_operator!
     set "user[!idx!]=%%a,%%b,%%c"
 )
 
@@ -108,41 +114,60 @@ for /f "tokens=1,2,3 delims=," %%a in ("!user[%num_choice%]!") do (
 echo %user% > %last_file%
 
 :login
+:: 转换运营商为中文名
+set "show_operator=%operator%"
+if "%operator%"=="@unicom" set "show_operator=中国联通"
+if "%operator%"=="@cmcc" set "show_operator=中国移动"
+if "%operator%"=="@telecom" set "show_operator=中国电信"
+if "%operator%"=="" set "show_operator=无锡学院"
+
 cls
-echo 正在登录 %user%%operator%...
+echo 正在登录 %user%（%show_operator%）...
 
 :: 解密密码
 echo %encpass% > %pw_file%
 certutil -decode %pw_file% decoded_pw.txt >nul
-set /p password=<decoded_pw.txt
+
+:: 使用 PowerShell 去掉所有换行和空格
+for /f "delims=" %%p in ('powershell -nologo -command "Get-Content decoded_pw.txt | Select-Object -First 1 | ForEach-Object { $_.Trim() }"') do (
+    set "password=%%p"
+)
 del %pw_file% >nul
 del decoded_pw.txt >nul
+
+
+setlocal enabledelayedexpansion
 
 set "account=%user%%operator%"
 curl -s "http://10.1.99.100:801/eportal/portal/login?callback=dr1003&login_method=1&user_account=,1,%account%&user_password=%password%&wlan_user_ip=&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=4.1.3&terminal_type=1&lang=zh-cn&v=6727&lang=zh" > result.txt
 
-set "result="
-for /f "usebackq tokens=* delims=" %%r in ("result.txt") do set "result=%%r"
-echo %result% | find /i "success" >nul
-if %errorlevel%==0 (
-    echo 登录成功！
-) else (
-    echo 登录失败，请检查账号或网络！
-)
+:: 由 PowerShell 读取 result.txt 判断是否含“协议认证成功”，并打印提示+内容
+powershell -Command ^
+  "$content = Get-Content -Raw -Path 'result.txt';" ^
+  "if ($content -like '*协议认证成功*') {" ^
+  "  Write-Host '%user%（%show_operator%） 登录成功！' -ForegroundColor Green;" ^
+  "} else {" ^
+  "  Write-Host '%user%（%show_operator%） 登录失败，请检查账号或网络！' -ForegroundColor Red;" ^
+  "};" ^
+  "Write-Host '--- 网关返回内容 ---';" ^
+  "Write-Host $content;"
+
 del result.txt
+
 echo.
 echo 【按回车键返回菜单...】
 pause >nul
 goto main_menu
+
 
 :add_user
 echo.
 set /p user=请输入学号：
 
 echo 请选择运营商：
-echo   1. 联通
-echo   2. 移动
-echo   3. 电信
+echo   1. 中国联通
+echo   2. 中国移动
+echo   3. 中国电信
 echo   4. 无锡学院
 set /p op_choice=请输入数字：
 
